@@ -15,14 +15,15 @@ def get_last_page():
 def extract_job(html):
     title = html.find("h2").find("a")["title"]
     company, location = html.find("h3").find_all("span", recursive=False)
-    company = company.get_text(strip=True)
-    location = location.get_text(strip=True)
-    print("company: ", company, "loc: ", location)
+    company = company.get_text(strip=True).strip()
+    location = location.get_text(strip=True).strip("-").strip("\r").strip("\n")
+
+    return {'title': title, 'company': company, 'location': location}
 
     # TODO: return이 출력이 안됨 해결할것 2.12 3:16까지 봄
 
-    return {"title": title, "company": company, "location": location}
 
+# TODO: 아 리턴 안됨
 
 def extract_jobs(last_page):
     jobs = []
@@ -39,5 +40,4 @@ def extract_jobs(last_page):
 def get_jobs():
     last_page = get_last_page()
     jobs = extract_jobs(last_page)
-    print(jobs)
-    return []
+    return jobs
