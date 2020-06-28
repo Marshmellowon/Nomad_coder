@@ -1,9 +1,11 @@
 import csv
 
 
-# TODO: 2.15 1:41까지 들음
-
 def save_to_file(jobs):
+    print("save_to 에서 jobs의 타입은: ", type(jobs))
     file = open("jobs.csv", mode="w")
-    print(file)
+    writer = csv.writer(file)
+    writer.writerow(['title', 'company', 'location', 'link'])
+    for job in jobs:
+        writer.writerow(job.values())
     return
